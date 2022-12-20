@@ -1,5 +1,3 @@
-use std::default;
-
 #[path = "../../utils/mod.rs"] mod utils;
 
 
@@ -11,7 +9,7 @@ pub fn part1() {
     for _ in 0..7 {
         cave.push([false,false,false,false,false,false,false]);
     }
-    let mut rocks: [Vec<Vec<bool>>;nb_shapes] = [
+    let rocks: [Vec<Vec<bool>>;nb_shapes] = [
         [
             [true,true,true,true].to_vec()
         ].to_vec(),

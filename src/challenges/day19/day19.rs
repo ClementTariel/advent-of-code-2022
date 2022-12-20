@@ -1,5 +1,3 @@
-use std::default;
-
 #[path = "../../utils/mod.rs"] mod utils;
 
 pub fn max_geodes(current_max:i32, bots: &mut [i32;4], resources: &mut [i32;4], optimisation: &[i32;4], cost: &Vec<Vec<i32>>, time_left: i32) -> i32 {
@@ -16,17 +14,14 @@ pub fn max_geodes(current_max:i32, bots: &mut [i32;4], resources: &mut [i32;4], 
         return 0;
     }
     //more complicated upper bound for the number of geodes
-    let mut ore = resources[0];
     let mut clay = resources[1];
     let mut obsidian = resources[2];
     let mut geodes = resources[3];
-    let mut ore_bot = bots[0];
     let mut clay_bot = bots[1];
     let mut obsidian_bot = bots[2];
     let mut geodes_bot = bots[3];
     let mut time_left_for_upper_bound = time_left;
     while (time_left_for_upper_bound > 0) && (obsidian_bot < cost[3][2]){
-        ore += ore_bot;
         clay += clay_bot;
         obsidian += obsidian_bot;
         geodes += geodes_bot;
@@ -140,7 +135,7 @@ pub fn part1() {
                 }
                 println!("blueprint {}; ore cost {}, clay cost {}, obs cost {} and {}, geode cost {} and {}",blueprint_id,cost[0][0],cost[1][0],cost[2][0],cost[2][1],cost[3][0],cost[3][2]);
                 let current_max = 0;
-                let mut final_max = max_geodes(current_max, &mut bots, &mut resources, &optimisation, &cost, time_limit);
+                let final_max = max_geodes(current_max, &mut bots, &mut resources, &optimisation, &cost, time_limit);
                 let quality_level = final_max*blueprint_id;
                 quality_sum += quality_level;
                 println!("max geode = {}, quality level = {}, (cumulated quality sum = {})",final_max,quality_level,quality_sum);
@@ -209,7 +204,7 @@ pub fn part2() {
                     }
                     println!("blueprint {}; ore cost {}, clay cost {}, obs cost {} and {}, geode cost {} and {}",blueprint_id,cost[0][0],cost[1][0],cost[2][0],cost[2][1],cost[3][0],cost[3][2]);
                     let current_max = 0;
-                    let mut final_max = max_geodes(current_max, &mut bots, &mut resources, &optimisation, &cost, time_limit);
+                    let final_max = max_geodes(current_max, &mut bots, &mut resources, &optimisation, &cost, time_limit);
                     final_product *= final_max;
                     println!("max geode = {}, (cumulated product = {})",final_max,final_product);
                     blueprint_id += 1;

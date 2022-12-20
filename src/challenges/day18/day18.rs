@@ -1,5 +1,3 @@
-use std::default;
-
 #[path = "../../utils/mod.rs"] mod utils;
 
 fn int_to_index(n:i32) -> usize {
