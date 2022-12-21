@@ -1,23 +1,32 @@
-mod utils;
-#[path = "challenges/day17/day17.rs"] mod day17;
+#[macro_export]
+macro_rules! include_day{
+    ($n:expr) => {
+        pub fn get_current_day() -> i32{
+            let n:i32 = stringify!($n).parse().unwrap();
+            return n;
+        }
+        include!(concat!("challenges/day",stringify!($n),"/day",stringify!($n),".rs"));
+        
+    };
+    () => {
+        pub fn get_current_day() -> i32{
+            let n:i32 = env!("AOC_DAY").parse().unwrap();
+            return n;
+        }
+        include!(concat!("challenges/day",env!("AOC_DAY"),"/day",env!("AOC_DAY"),".rs"));
+    }
+    ;
+}
 
-
-
+include_day!();
 
 fn main() {
-
-    // let current_day = utils::get_last_day();
-    // println!("day{current_day}");
-    // let file_path = utils::day_to_file_path(current_day);
-    // println!("{}", file_path);
-    // include!(file_path);
-    println!("solving day17");
+    println!("{}",env!("CARGO_MANIFEST_DIR"));
+    println!("solving day{}",get_current_day());
     println!("part1");
-    day17::part1();
+    part1();
     println!("part2");
-    day17::part2();
-    
-    
+    part2();    
 }
 
 
