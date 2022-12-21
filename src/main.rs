@@ -23,10 +23,26 @@ include_day!();
 fn main() {
     println!("{}",env!("CARGO_MANIFEST_DIR"));
     println!("solving day{}",get_current_day());
-    println!("part1");
-    part1();
-    println!("part2");
-    part2();    
+    let mut run_part1 = true;
+    #[cfg(feature = "part2")]{
+        #[cfg(not(feature = "part1"))]{
+            run_part1 = false;
+        }
+    }
+    if run_part1{
+        println!("part1");
+        part1();
+    }
+    let mut run_part2 = true;
+    #[cfg(feature = "part1")]{
+        #[cfg(not(feature = "part2"))]{
+            run_part2 = false;
+        }
+    }
+    if run_part2{
+        println!("part2");
+        part2();
+    } 
 }
 
 
