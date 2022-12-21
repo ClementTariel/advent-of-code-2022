@@ -3,7 +3,7 @@ use std::fs::{self};
 
 pub fn get_last_day() -> i32{
     let mut last_day = 0;
-    for file in fs::read_dir("./src/challenges").unwrap() {
+    for file in fs::read_dir(String::from(env!("CARGO_MANIFEST_DIR"))+"/src/challenges/").unwrap() {
         let day_name = file.unwrap().path().display().to_string();
         let day = day_name[day_name.len()-2..day_name.len()].parse().unwrap();
         if day > last_day {
