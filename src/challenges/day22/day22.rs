@@ -328,12 +328,6 @@ pub fn map_with_one_square_per_cube_face(map: &Vec<Vec<char>>, n:usize) -> CubeM
         }
     }
 
-    // for i in 0..(simple_map.len()){
-    //     for j in 0..(simple_map[0].len()){
-    //         print!("{}",simple_map[i][j]);
-    //     }
-    //     print!("\n");
-    // }
     return CubeMap{simple_map,faces};
 }
 
@@ -343,24 +337,8 @@ pub fn travel_on_cube(i:usize, j:usize, step:&[usize;2], map:&Vec<Vec<char>>, n:
     let mut next_i = (i + step[0])%n_i;
     let mut next_j = (j + step[1])%n_j;
     if (i/n == next_i/n) && (j/n == next_j/n){
-        //println!("same face");
         return [next_i,next_j,0];
     }
-    // print!("\n");
-    // for i1 in 0..n_i{
-    //     for j1 in 0..n_j{
-    //         if (i==i1) && (j==j1){
-    //             print!("A");
-    //         }else{
-    //             print!("{}",map[i1][j1]);
-    //         }
-    //     }
-    //     print!("\n");
-    // }
-    // for _ in 0..n_j{
-    //     print!("-");
-    // }
-    // print!("\n");
     let current_face_num = cube_map.simple_map[i/n][j/n];
     let mut neihb_offset: [i32;2] = [((step[0]+1)%n_i) as i32 - 1,((step[1]+1)%n_j) as i32 - 1];
     // *-1 because we move out of the face
@@ -385,9 +363,9 @@ pub fn travel_on_cube(i:usize, j:usize, step:&[usize;2], map:&Vec<Vec<char>>, n:
         for simple_j in 0..(cube_map.simple_map[0].len()){
             if cube_map.simple_map[simple_i][simple_j] == next_face_num {
                 base_i = simple_i*n;
-                delta_i = (next_i-n*(next_i/n));
+                delta_i = next_i-n*(next_i/n);
                 base_j = simple_j*n;
-                delta_j = (next_j-n*(next_j/n));
+                delta_j = next_j-n*(next_j/n);
             }
         }
     }
@@ -406,25 +384,6 @@ pub fn travel_on_cube(i:usize, j:usize, step:&[usize;2], map:&Vec<Vec<char>>, n:
         next_i = next_i + n-1 - 2*delta_i;
         next_j = next_j + n-1 - 2*delta_j;
     }
-    // println!("r = {}",r);
-    // for _ in 0..n_j{
-    //     print!("-");
-    // }
-    // print!("\n");
-    // for i1 in 0..n_i{
-    //     for j1 in 0..n_j{
-    //         if (next_i==i1) && (next_j==j1){
-    //             print!("B");
-    //         }else{
-    //             print!("{}",map[i1][j1]);
-    //         }
-    //     }
-    //     print!("\n");
-    // }
-    // for _ in 0..n_j{
-    //     print!("-");
-    // }
-    // print!("\n");
     return [next_i,next_j,r];
 }
 
@@ -447,7 +406,6 @@ pub fn part2() {
                 if line_content == ""{
                     drawing_map = false;
                     n = find_n(nb_char);
-                    //println!("n = {}",n);
                     cube_map = map_with_one_square_per_cube_face(&map,n);
                     continue;
                 }
@@ -476,16 +434,6 @@ pub fn part2() {
                     n_j = map[n_i-1].len();
 
                 }else{
-                    // for i in 0..n_i{
-                    //     for j in 0..n_j{
-                    //         if (x==i) && (y==j){
-                    //             print!("X");
-                    //         }else{
-                    //             print!("{}",map[i][j]);
-                    //         }
-                    //     }
-                    //     print!("\n");
-                    // }
                     let dirs = [[0,1],[1,0],[0,n_j-1],[n_i-1,0]];
                     for c in line_content.chars() {
                         let make_a_turn = (c == 'L') || (c == 'R');
